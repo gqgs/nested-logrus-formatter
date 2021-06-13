@@ -100,6 +100,10 @@ func (f *Formatter) Format(entry *logrus.Entry) ([]byte, error) {
 	// write prefix
 	if f.Prefix != "" {
 		b.WriteString(f.Prefix)
+
+		if !f.NoFieldsSpace {
+			b.WriteString(" ")
+		}
 	}
 
 	// write fields
