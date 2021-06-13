@@ -45,6 +45,9 @@ type Formatter struct {
 
 	// CustomCallerFormatter - set custom formatter for caller info
 	CustomCallerFormatter func(*runtime.Frame) string
+
+	// Prefix - add prefix string to logs
+	Prefix string
 }
 
 // Format an log entry
@@ -92,6 +95,11 @@ func (f *Formatter) Format(entry *logrus.Entry) ([]byte, error) {
 
 	if !f.NoColors && f.NoFieldsColors {
 		b.WriteString("\x1b[0m")
+	}
+
+	// write prefix
+	if f.Prefix != "" {
+		b.WriteString(f.Prefix)
 	}
 
 	// write fields
